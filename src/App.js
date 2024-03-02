@@ -1,11 +1,61 @@
 import {useState} from 'react';
 
+function generateRandomColor() {
+  const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+  return randomColor;
+}
+
+const randomNumberInRange = (min, max) => {
+  return Math.floor(Math.random()
+      * (max - min + 1)) + min;
+};
+
 function Square({value, onSquareClick}) {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const events = ['squareColourChange', 'squareBasic'];
+  const [randomEvent, setRandomEvent] = useState('default');
+
+  const [backgroundColor, setBackgroundColor] = useState('white');
+
+
+  const handleClick = () => {
+    // Toggle the clicked state
+    setIsClicked(!isClicked);
+
+    // Pass the click event to the parent component
+    onSquareClick();
+    
+    // Random event 
+    const randomIndex = Math.floor(Math.random() * events.length);
+    const randomEvent = events[randomIndex];
+    console.log("Event case: " + randomIndex);
+
+    switch (randomEvent){
+      case 'squareColourChange':{  
+        setBackgroundColor(generateRandomColor());
+        console.log("square colour changed");
+        break;
+      }
+      case 'squareBasic':{
+        setBackgroundColor("white");
+        console.log("just white ");
+        break;
+      }
+      default:
+    }
+
+  };
+
   return (
-    <button className="square" onClick={onSquareClick}>
+    <button
+      className="square"
+      onClick={handleClick}
+      style={{ backgroundColor }}
+    >
       {value}
     </button>
-    );
+  );
 }
 
 export default function Board() {
@@ -75,3 +125,4 @@ function calculateWinner(squares) {
   }
   return null;
 }
+
