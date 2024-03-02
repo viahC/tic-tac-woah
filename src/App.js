@@ -1,11 +1,28 @@
 import {useState} from 'react';
 
+
 function Square({value, onSquareClick}) {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleClick = () => {
+    // Toggle the clicked state
+    setIsClicked(!isClicked);
+
+    // Pass the click event to the parent component
+    onSquareClick();
+  };
+
+  const backgroundColor = isClicked ? 'blue' : 'initial';
+
   return (
-    <button className="square" onClick={onSquareClick}>
+    <button
+      className="square"
+      onClick={handleClick}
+      style={{ backgroundColor }}
+    >
       {value}
     </button>
-    );
+  );
 }
 
 export default function Board() {
@@ -75,3 +92,4 @@ function calculateWinner(squares) {
   }
   return null;
 }
+
