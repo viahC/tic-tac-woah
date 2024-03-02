@@ -1,4 +1,17 @@
-import {useState} from 'react';
+//import {useState} from 'react';
+///////////////
+import {useState, useEffect} from 'react';
+import song from "./vine-boom.mp3";
+
+////new////
+class App extends Component {
+  //create state
+  state = {
+    audio: new Audio(song),
+
+    isPlaying:false,
+  }
+};
 
 function Square({value, onSquareClick}) {
   return (
@@ -28,8 +41,13 @@ export default function Board() {
 
   const winner = calculateWinner(squares);
   let status;
+  const sound = new Audio(song);
+  
+  /////
   if (winner) {
     status = "Winner: " + winner;
+    sound.play();
+
   } else {
     status = "Next player: " + (xIsNext ? "X" : "O");
   }
@@ -58,6 +76,7 @@ export default function Board() {
 
 function calculateWinner(squares) {
   const lines = [
+  //all the possible winning combinations
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
