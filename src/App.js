@@ -58,9 +58,13 @@ function Square({value, onSquareClick}) {
   );
 }
 
+let x = "X";
+let o = "O";
+
+
 export default function Board() {
-  const [xIsNext, setXIsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
+  const [xIsNext, setXIsNext] = useState(true);
 
   function handleClick(i) {
     if (squares[i] || calculateWinner(squares)) {
@@ -68,11 +72,12 @@ export default function Board() {
     }
     const nextSquares = squares.slice();
     if (xIsNext) {
-      nextSquares[i] = "X";
+      nextSquares[i] = x;
     } else {
-      nextSquares[i] = "O";
+      nextSquares[i] = o;
     }
     setSquares(nextSquares);
+    // setSquares(changeSymbol(squares));
     setXIsNext(!xIsNext);
   }
 
@@ -81,7 +86,7 @@ export default function Board() {
   if (winner) {
     status = "Winner: " + winner;
   } else {
-    status = "Next player: " + (xIsNext ? "X" : "O");
+    status = "Next player: " + (xIsNext ? x : o);
   }
 
   return (
@@ -126,3 +131,23 @@ function calculateWinner(squares) {
   return null;
 }
 
+function changeSymbol(squares) {
+  const symbols = ["@", "$", "%", "*", "?", "#", "~"]
+  let temp1 = x;
+  let temp2 = o;
+  let ran = Math.floor(Math.random() * 6);
+  x = symbols[ran];
+  do{
+    ran = Math.floor(Math.random() * 6);
+  } while (ran === x)
+  o = symbols[ran];
+
+  const newSymbols = squares.map(symbol => {
+    if(symbol === temp1) {
+      return x;
+    } else if (symbol === temp2) {
+      return o;
+    }
+  });
+  return newSymbols;
+}
