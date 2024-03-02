@@ -66,8 +66,7 @@ export default function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
   const [position, setPosition] = useState({ top: 20, left: 20 });
-  const [backgroundColor, setBackgroundColor] = useState{white};
-
+  const [backgroundColor, setBackgroundColor] = useState('white');
 
   function handleClick(i) {
     if (squares[i] || calculateWinner(squares)) {
