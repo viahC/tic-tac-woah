@@ -65,11 +65,22 @@ let o = "O";
 export default function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
+  const [position, setPosition] = useState({ top: 20, left: 20 });
+  const [backgroundColor, setBackgroundColor] = useState{white};
+
 
   function handleClick(i) {
     if (squares[i] || calculateWinner(squares)) {
       return;
     }
+
+    // Update the board position
+    const newPosition = {
+      top: Math.floor(Math.random() * (window.innerHeight - 50)),
+      left: Math.floor(Math.random() * (window.innerWidth - 50)),
+    };
+
+    setPosition(newPosition);
     const nextSquares = squares.slice();
     if (xIsNext) {
       nextSquares[i] = x;
@@ -90,7 +101,11 @@ export default function Board() {
   }
 
   return (
-    <>
+    <div style ={{
+      position: 'absolute',
+      top: `${position.top}px`,
+      left: `${position.left}px`, 
+    }}> 
       <div className="status">{status}</div>
       <div className="board-row">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
@@ -107,7 +122,7 @@ export default function Board() {
         <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
         <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
       </div>
-    </>
+    </div>
   );
 }
 
