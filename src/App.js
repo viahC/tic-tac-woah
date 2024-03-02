@@ -1,4 +1,8 @@
 import {useState} from 'react';
+import okLetsGo from "./audioFiles/ok-lets-go.mp3";
+import animeWow from "./audioFiles/anime-wow.mp3";
+import vineBoom from "./audioFiles/vine-boom.mp3";
+
 
 function generateRandomColor() {
   const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
@@ -12,12 +16,9 @@ const randomNumberInRange = (min, max) => {
 
 function Square({value, onSquareClick}) {
   const [isClicked, setIsClicked] = useState(false);
-
-  const events = ['squareColourChange', 'squareBasic'];
+  const events = ['squareColourChange', 'squareBasic', 'playSound'];
   const [randomEvent, setRandomEvent] = useState('default');
-
   const [backgroundColor, setBackgroundColor] = useState('white');
-
 
   const handleClick = () => {
     // Toggle the clicked state
@@ -30,6 +31,10 @@ function Square({value, onSquareClick}) {
     const randomIndex = Math.floor(Math.random() * events.length);
     const randomEvent = events[randomIndex];
     console.log("Event case: " + randomIndex);
+
+    //play sound
+    const sound = new Audio(vineBoom);
+    sound.play();
 
     switch (randomEvent){
       case 'squareColourChange':{  
@@ -93,8 +98,10 @@ export default function Board() {
 
   const winner = calculateWinner(squares);
   let status;
+  const sound = new Audio(animeWow); 
   if (winner) {
     status = "Winner: " + winner;
+    sound.play(); 
   } else {
     status = "Next player: " + (xIsNext ? x : o);
   }
