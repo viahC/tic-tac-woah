@@ -5,9 +5,17 @@ function generateRandomColor() {
   return randomColor;
 }
 
+const randomNumberInRange = (min, max) => {
+  return Math.floor(Math.random()
+      * (max - min + 1)) + min;
+};
+
 function Square({value, onSquareClick}) {
   const [isClicked, setIsClicked] = useState(false);
-  
+
+  const events = ['squareColourChange', 'squareBasic'];
+  const [randomEvent, setRandomEvent] = useState('default');
+
   const [backgroundColor, setBackgroundColor] = useState('white');
 
 
@@ -17,10 +25,27 @@ function Square({value, onSquareClick}) {
 
     // Pass the click event to the parent component
     onSquareClick();
+    
+    // Random event 
+    const randomIndex = Math.floor(Math.random() * events.length);
+    const randomEvent = events[randomIndex];
+    console.log("Event case: " + randomIndex);
 
-    setBackgroundColor(generateRandomColor());
+    switch (randomEvent){
+      case 'squareColourChange':{  
+        setBackgroundColor(generateRandomColor());
+        console.log("square colour changed");
+        break;
+      }
+      case 'squareBasic':{
+        setBackgroundColor("white");
+        console.log("just white ");
+        break;
+      }
+      default:
+    }
+
   };
-
 
   return (
     <button
