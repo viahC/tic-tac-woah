@@ -56,11 +56,6 @@ body {
   padding: 0;
 }
 
-.boardPosition {
-  position: fixed;
-  left: 30px;
-  top: 100px; 
-}
 
 .square {
   background: #fff;
