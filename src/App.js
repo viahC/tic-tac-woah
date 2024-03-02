@@ -1,8 +1,15 @@
 import {useState} from 'react';
 
+function generateRandomColor() {
+  const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+  return randomColor;
+}
 
 function Square({value, onSquareClick}) {
   const [isClicked, setIsClicked] = useState(false);
+  
+  const [backgroundColor, setBackgroundColor] = useState('white');
+
 
   const handleClick = () => {
     // Toggle the clicked state
@@ -10,9 +17,10 @@ function Square({value, onSquareClick}) {
 
     // Pass the click event to the parent component
     onSquareClick();
+
+    setBackgroundColor(generateRandomColor());
   };
 
-  const backgroundColor = isClicked ? 'blue' : 'initial';
 
   return (
     <button
