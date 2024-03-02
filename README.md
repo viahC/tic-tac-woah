@@ -13,13 +13,14 @@ Back-end:
 Basis:
 * basic tic-tac-toe
 
-Possible Features:
+Possible Features: (simplest to complex)
+* make each x symbol rotate
+* symbol changes 
+* lights 
+* sounds
+* button functionality changes 
 * board layout changes
     * rotation 
-* lights 
-* sounds 
-* symbol changes 
-* button functionality changes 
 
 How to Run:
 First, run the development server:
