@@ -2,7 +2,10 @@ import {useState} from 'react';
 import okLetsGo from "./audioFiles/ok-lets-go.mp3";
 import animeWow from "./audioFiles/anime-wow.mp3";
 import vineBoom from "./audioFiles/vine-boom.mp3";
+import boo from "./audioFiles/boo-6377.mp3";
 import space from './images/space.gif';
+
+let count = 0; 
 
 function generateRandomColor() {
   const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
@@ -16,7 +19,7 @@ const randomNumberInRange = (min, max) => {
 
 function Square({value, onSquareClick}) {
   const [isClicked, setIsClicked] = useState(false);
-  const events = ['squareColourChange', 'squareBasic', 'playSound'];
+  const events = ['squareColourChange', 'squareBasic'];
   const [randomEvent, setRandomEvent] = useState('default');
   const [backgroundColor, setBackgroundColor] = useState('white');
 
@@ -71,6 +74,7 @@ export default function Board() {
   const [position, setPosition] = useState({ top: 20, left: 20 });
   const [backgroundColor, setBackgroundColor] = useState('white');
 
+  
   function handleClick(i) {
     if (squares[i] || calculateWinner(squares)) {
       return;
@@ -96,14 +100,25 @@ export default function Board() {
     
     setSquares(newSquares);
     setXIsNext(!xIsNext);
+
+    // click counter
+    count++;
   }
 
   const winner = calculateWinner(squares);
   let status;
   const sound = new Audio(animeWow); 
   if (winner) {
-    status = "Winner: " + winner;
-    sound.play(); 
+    if (winner == "X" || winner == "O"){
+      status = "Winner: " + winner;
+      sound.play(); 
+    }
+    else{
+      const booSound = new Audio(boo); 
+      status = winner;
+      booSound.play(); 
+    }
+  
   } else {
     status = "Next player: " + (xIsNext ? x : o);
   }
@@ -153,6 +168,14 @@ function calculateWinner(squares) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];
+    }
+    else if ((squares[a] && squares[a] != 'X') && 
+             (squares[b] && squares[b] != 'X') && 
+             (squares[c] && squares[c] != 'X')){
+      return 'O';
+    }
+    else if (count == 9){
+      return 'Tie :('; 
     }
   }
   return null;
