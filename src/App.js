@@ -63,11 +63,9 @@ function Square({value, onSquareClick}) {
   );
 }
 
-let x = "X";
-let o = "O";
-
-
 export default function Board() {
+  let x = "X";
+  let o = "O";
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
   const [position, setPosition] = useState({ top: 20, left: 20 });
@@ -91,8 +89,12 @@ export default function Board() {
     } else {
       nextSquares[i] = o;
     }
-    setSquares(nextSquares);
-    // setSquares(changeSymbol(squares));
+    const result = changeSymbol(nextSquares, x, o)
+    const newSquares = result.squares;
+    x = result.x;
+    o = result.o;
+    
+    setSquares(newSquares);
     setXIsNext(!xIsNext);
   }
 
@@ -152,23 +154,32 @@ function calculateWinner(squares) {
   return null;
 }
 
-function changeSymbol(squares) {
+function changeSymbol(squares, x, o) {
   const symbols = ["@", "$", "%", "*", "?", "#", "~"]
   let temp1 = x;
   let temp2 = o;
-  let ran = Math.floor(Math.random() * 6);
-  x = symbols[ran];
-  do{
-    ran = Math.floor(Math.random() * 6);
-  } while (ran === x)
-  o = symbols[ran];
+  let rand = Math.floor(Math.random() * 7);
+  x = symbols[rand];
+  do {
+    rand = Math.floor(Math.random() * 7);
+  } while (rand === x)
+  o = symbols[rand];
 
+  const updateItems = (temp, y) => {
+    const updated = squares.mao(square => (square === temp ? y : square));
+    setSquares(updated);
+  }
   const newSymbols = squares.map(symbol => {
-    if(symbol === temp1) {
+    if (symbol === temp2) {
       return x;
     } else if (symbol === temp2) {
       return o;
     }
+    return symbol;
   });
-  return newSymbols;
+  return {
+    squares: newSymbols, 
+    x: x, 
+    o: o
+  };
 }
