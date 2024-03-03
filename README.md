@@ -1,30 +1,17 @@
 # tic-tac-woah // ChaosHacks 2024
 
-Core idea:
-
-- Tic-tac-toe, but chaotic
-  - Think impossible game where things don't really make sense
+"Have you ever thought tic-tac-toe was boring? Look no further! We introduce to you Tic-Tac-Woah!"
 
 Tech-stack:
-Front-end:
-
 - React.js
-  Back-end:
-- C++ (for different levels )
-
-Basis:
-
-- basic tic-tac-toe
-
-Possible Features: (simplest to complex)
-
-- make each x symbol rotate
-- symbol changes
-- lights
-- sounds
-- button functionality changes
-- board layout changes
-  - rotation
+ 
+Features:
+- Tic-tac-toe
+- Colour changing tiles
+- Chaotic symbol change 
+- Sound Effects
+- Moving background
+- Moving board 
 
 How to Run:
 First, run the development server:
