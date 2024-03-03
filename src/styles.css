@@ -6,6 +6,7 @@ body {
   font-family: sans-serif;
   margin: 20px;
   padding: 0;
+  background-image: url(./images/space.gif);
 }
 
 h1 {
@@ -55,7 +56,6 @@ body {
   margin: 20px;
   padding: 0;
 }
-
 
 .square {
   background: #fff;
